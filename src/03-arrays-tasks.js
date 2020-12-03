@@ -378,8 +378,12 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  // throw new Error('Not implemented');
+  if (arr.length <= 3) {
+    return arr.reverse();
+  }
+  return arr.reverse().slice(0, 3);
 }
 
 
@@ -396,8 +400,14 @@ function get3TopItems(/* arr */) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  // throw new Error('Not implemented');
+  if (arr.length === 0) return 0;
+  function reduceFunc(acc, v) {
+    if (typeof v !== 'string' && v > 0) { return acc + 1; }
+    return acc;
+  }
+  return arr.reduce(reduceFunc, 0);
 }
 
 /**
