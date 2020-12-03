@@ -119,7 +119,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
 function repeatString(value, count) {
   // throw new Error('Not implemented');
   let str = '';
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < count; i += 1) {
     str += value;
   }
   return str;
@@ -227,9 +227,9 @@ function getRectangleString(width, height) {
   const gotizontalLine = '─';
   const verticalLine = '│';
 
-  for (let i = 0; i < height; i++) {
+  for (let i = 0; i < height; i += 1) {
     let line = '';
-    for (let j = 0; j < width; j++) {
+    for (let j = 0; j < width; j += 1) {
       if (i === 0) {
         if (j === 0) {
           line += topLeftCorner;
@@ -278,7 +278,7 @@ function getRectangleString(width, height) {
 function encodeToRot13(str) {
   // throw new Error('Not implemented');
   let rot13 = '';
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i += 1) {
     const charNum = str.charCodeAt(i);
     if ((charNum >= 97 && charNum <= 109) || (charNum >= 65 && charNum <= 77)) {
       rot13 += String.fromCharCode(charNum + 13);
