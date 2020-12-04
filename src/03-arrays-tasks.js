@@ -728,13 +728,17 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
-  // function reduceFunc(total, amount) {
-  //   let arr = [];
-  //   total.push()
-  // }
-  // const map = array.reduce(reduceFunc, []);
+function group(array, keySelector, valueSelector) {
+  // throw new Error('Not implemented');
+  function reduceFunc(total, amount) {
+    const item = total;
+    item[keySelector(amount)] = item[keySelector(amount)] || [];
+    item[keySelector(amount)].push(valueSelector(amount));
+    return item;
+  }
+  const groupValues = array.reduce(reduceFunc, {});
+
+  return Object.keys(groupValues).map((key) => [key, groupValues[key]]);
 }
 
 
@@ -751,8 +755,12 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  // throw new Error('Not implemented');
+  function mapFunc(v) {
+    return childrenSelector(v);
+  }
+  return arr.map(mapFunc).flat();
 }
 
 
@@ -768,8 +776,19 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  // throw new Error('Not implemented');
+  let count = 1;
+  let result = arr[indexes[0]];
+
+  function deepSearch() {
+    if (count === indexes.length) return result;
+    result = result[indexes[count]];
+    count += 1;
+    return deepSearch();
+  }
+
+  return deepSearch();
 }
 
 
@@ -791,8 +810,13 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  // throw new Error('Not implemented');
+  const half = Math.floor(arr.length / 2);
+  const firstArr = arr.slice(0, half);
+  const secondArr = arr.slice(arr.length - half);
+  const thirdArr = arr.slice(half, arr.length - half);
+  return secondArr.concat(thirdArr).concat(firstArr);
 }
 
 
