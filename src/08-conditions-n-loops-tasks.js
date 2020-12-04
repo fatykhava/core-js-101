@@ -27,8 +27,18 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  // throw new Error('Not implemented');
+  if (num % 3 !== 0 && num % 5 !== 0) {
+    return num;
+  }
+  if (num % 3 === 0 && num % 5 === 0) {
+    return 'FizzBuzz';
+  }
+  if (num % 3 === 0) {
+    return 'Fizz';
+  }
+  return 'Buzz';
 }
 
 
@@ -43,8 +53,13 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  // throw new Error('Not implemented');
+  let factorial = 1;
+  for (let i = 1; i <= n; i += 1) {
+    factorial *= i;
+  }
+  return factorial;
 }
 
 
@@ -60,8 +75,13 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  // throw new Error('Not implemented');
+  let sum = 0;
+  for (let i = n1; i <= n2; i += 1) {
+    sum += i;
+  }
+  return sum;
 }
 
 
@@ -80,8 +100,10 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  // throw new Error('Not implemented');
+  if (a + b > c && b + c > a && a + c > b) return true;
+  return false;
 }
 
 
@@ -164,8 +186,18 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  // throw new Error('Not implemented');
+  let char = null;
+  for (let i = 0; i < str.length - 1; i += 1) {
+    const stringR = str.slice(i + 1);
+    const stringL = str.slice(0, i);
+    if (stringL.indexOf(str[i]) === -1 && stringR.indexOf(str[i]) === -1) {
+      char = str[i];
+      break;
+    }
+  }
+  return char;
 }
 
 
@@ -191,8 +223,11 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  // throw new Error('Not implemented');
+  const start = isStartIncluded ? '[' : '(';
+  const end = isEndIncluded ? ']' : ')';
+  return a > b ? `${start}${b}, ${a}${end}` : `${start}${a}, ${b}${end}`;
 }
 
 
