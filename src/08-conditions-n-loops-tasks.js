@@ -170,8 +170,9 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const checkNum = Math.sqrt(point.x - circle.center.x) + Math.sqrt(point.y - circle.center.y);
+  return checkNum < Math.sqrt(circle.radius);
 }
 
 
@@ -445,6 +446,10 @@ function isBracketsBalanced(str) {
  */
 function toNaryString(/* num, n */) {
   throw new Error('Not implemented');
+  // if (n === 10) return nam;
+  // if (n === 2) {
+
+  // }
 }
 
 
@@ -505,8 +510,23 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  // throw new Error('Not implemented');
+  const resultArr = [];
+  for (let a = 0; a < m1.length; a += 1) {
+    const arr = [];
+
+    for (let i = 0; i < m1.length; i += 1) {
+      let numb = 0;
+
+      for (let j = 0; j < m1[i].length; j += 1) {
+        numb += m1[a][j] * m2[j][i];
+      }
+      arr.push(numb);
+    }
+    resultArr.push(arr);
+  }
+  return resultArr;
 }
 
 
@@ -540,8 +560,43 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  // throw new Error('Not implemented');
+  if (position[0][0] === position[1][1] && position[1][1] === position[2][2]) {
+    if (position[0][0] === 'X') {
+      return 'X';
+    }
+    if (position[0][0] === '0') {
+      return '0';
+    }
+  }
+  if (position[0][2] === position[1][1] && position[1][1] === position[2][0]) {
+    if (position[0][2] === 'X') {
+      return 'X';
+    }
+    if (position[2][0] === '0') {
+      return '0';
+    }
+  }
+  for (let i = 0; i < position.length; i += 1) {
+    if (position[i][0] === position[i][1] && position[i][1] === position[i][2]) {
+      if (position[i][0] === 'X') {
+        return 'X';
+      }
+      if (position[i][0] === '0') {
+        return '0';
+      }
+    }
+    if (position[0][i] === position[1][i] && position[1][i] === position[2][i]) {
+      if (position[0][i] === 'X') {
+        return 'X';
+      }
+      if (position[0][i] === '0') {
+        return '0';
+      }
+    }
+  }
+  return undefined;
 }
 
 
