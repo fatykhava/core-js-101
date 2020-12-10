@@ -243,8 +243,13 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  // throw new Error('Not implemented');
+  let resultStr = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    resultStr += str[i];
+  }
+  return resultStr;
 }
 
 
@@ -260,8 +265,14 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  // throw new Error('Not implemented');
+  const str = String(num);
+  let resultStr = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    resultStr += str[i];
+  }
+  return Number(resultStr);
 }
 
 
@@ -285,8 +296,27 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  // throw new Error('Not implemented');
+  const numbToStr = String(ccn);
+  const arr = numbToStr.split('');
+
+  function mapFunc(v, i) {
+    const int = parseInt(v, 10);
+    if ((i % 2) !== 1) return int;
+    if (int * 2 > 9) return Math.floor((int * 2) / 10) + ((int * 2) % 10);
+    return int * 2;
+  }
+
+  const newArr = arr.reverse().map(mapFunc);
+
+  let sum = 0;
+
+  newArr.forEach((numb) => {
+    sum += numb;
+  });
+
+  return sum % 10 === 0;
 }
 
 /**
@@ -303,8 +333,23 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  // throw new Error('Not implemented');
+  const numbToStr = String(num);
+  const arr = numbToStr.split('');
+
+  function reduceFunc(total, amount) {
+    const int = parseInt(amount, 10);
+    return total + int;
+  }
+
+  const sum = arr.reduce(reduceFunc, 0);
+
+  if (sum > 9) {
+    return getDigitalRoot(sum);
+  }
+
+  return sum;
 }
 
 
@@ -329,8 +374,52 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  // throw new Error('Not implemented');
+  if (str.length === 0) return true;
+  if (str.length % 2 === 1) return false;
+
+  const arr = str.split('');
+
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr.length === 0) return true;
+    const unicode = arr[i].charCodeAt(0);
+    if (unicode === 93 || unicode === 125 || unicode === 41 || unicode === 62) {
+      if (i === 0) {
+        return false;
+      }
+      if (arr[i].charCodeAt(0) === 93 && arr[i - 1].charCodeAt(0) !== 91) {
+        return false;
+      }
+      if (arr[i].charCodeAt(0) === 62 && arr[i - 1].charCodeAt(0) !== 60) {
+        return false;
+      }
+      if (arr[i].charCodeAt(0) === 41 && arr[i - 1].charCodeAt(0) !== 40) {
+        return false;
+      }
+      if (arr[i].charCodeAt(0) === 125 && arr[i - 1].charCodeAt(0) !== 123) {
+        return false;
+      }
+      if (arr[i].charCodeAt(0) === 41 && arr[i - 1].charCodeAt(0) === 40) {
+        arr.pop(arr[i]);
+        arr.pop(arr[i - 1]);
+        i = -1;
+      } else if (arr[i].charCodeAt(0) === 93 && arr[i - 1].charCodeAt(0) === 91) {
+        arr.pop(arr[i]);
+        arr.pop(arr[i - 1]);
+        i = -1;
+      } else if (arr[i].charCodeAt(0) === 125 && arr[i - 1].charCodeAt(0) === 123) {
+        arr.pop(arr[i]);
+        arr.pop(arr[i - 1]);
+        i = -1;
+      } else if (arr[i].charCodeAt(0) === 62 && arr[i - 1].charCodeAt(0) === 60) {
+        arr.pop(arr[i]);
+        arr.pop(arr[i - 1]);
+        i = -1;
+      }
+    }
+  }
+  return true;
 }
 
 
@@ -371,8 +460,30 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  // throw new Error('Not implemented');
+  const arr = [];
+  let str = '';
+
+  for (let i = 0; i < pathes.length; i += 1) {
+    arr.push(pathes[i].split('/'));
+  }
+
+  for (let i = 0; i < arr[0].length; i += 1) {
+    let count = '';
+    for (let j = 1; j < arr.length; j += 1) {
+      if (arr[0][i] !== arr[j][i]) return str;
+      count = j;
+    }
+    if (arr[count][i] === '') {
+      str += '/';
+    } else {
+      str += arr[count][i];
+      str += '/';
+    }
+  }
+
+  return str;
 }
 
 
