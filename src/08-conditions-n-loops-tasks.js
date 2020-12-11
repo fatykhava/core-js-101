@@ -139,8 +139,33 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  // throw new Error('Not implemented');
+  const topInterval = [];
+  topInterval.push(rect1.top);
+  topInterval.push(rect1.top + rect1.width);
+  const leftInterval = [];
+  leftInterval.push(rect1.left);
+  leftInterval.push(rect1.left + rect1.height);
+
+  topInterval.push(rect2.top);
+  topInterval.push(rect2.top + rect2.width);
+  leftInterval.push(rect2.left);
+  leftInterval.push(rect2.left + rect2.height);
+
+  if (rect2.top >= topInterval[0] && rect2.top < topInterval[1]) {
+    if (rect2.left >= leftInterval[0] && rect2.left < leftInterval[1]) {
+      return true;
+    }
+  }
+
+  if (rect1.top >= topInterval[2] && rect1.top < topInterval[3]) {
+    if (rect1.left >= leftInterval[2] && rect1.left < leftInterval[3]) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 
@@ -444,12 +469,57 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
-  // if (n === 10) return nam;
-  // if (n === 2) {
-
-  // }
+function toNaryString(num, n) {
+  // throw new Error('Not implemented');
+  let result = 0;
+  if (n === 10) return num;
+  if (n === 2) {
+    if (num >= 256) {
+      const zero = Math.floor(num / 256) - 1;
+      const number = num % 256;
+      result = 10000000 * (10 ** zero);
+      for (let i = 7; i >= 0; i -= 1) {
+        if (number >= (n ** i)) {
+          result += 1 * (10 ** i);
+        }
+      }
+    } else {
+      result = 0;
+      for (let j = 7; j >= 0; j -= 1) {
+        if (num >= (n ** j)) {
+          result += 1 * (10 ** j);
+        }
+      }
+    }
+  }
+  if (n === 3) {
+    if (num >= 6561) {
+      const zero = Math.floor(num / 6561);
+      const number = num % 6561;
+      result = 10000000 * (10 ** zero);
+      let j = 0;
+      for (let i = number; i >= 0; i = Math.trunc(i / n)) {
+        result += (i % n) * (10 ** j);
+        j += 1;
+      }
+    } else {
+      result = 0;
+      let j = 0;
+      for (let i = num; i >= 0; i = Math.trunc(i / n)) {
+        result += (i % n) * (10 ** j);
+        j += 1;
+      }
+    }
+  }
+  if (n === 4) {
+    result = 0;
+    let j = 0;
+    for (let i = num; i >= 0; i = Math.trunc(i / n)) {
+      result += (i % n) * (10 ** j);
+      j += 1;
+    }
+  }
+  return result;
 }
 
 
