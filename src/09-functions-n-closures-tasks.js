@@ -25,6 +25,14 @@
  */
 function getComposition(/* f, g */) {
   throw new Error('Not implemented');
+  // function makeCounter() {
+  //   const a = f;
+  //   return function ar() {
+  //     return a;
+  //   };
+  // }
+  // const b = makeCounter();
+  // return b(g);
 }
 
 

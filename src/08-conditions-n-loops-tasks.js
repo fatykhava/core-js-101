@@ -471,55 +471,7 @@ function isBracketsBalanced(str) {
  */
 function toNaryString(num, n) {
   // throw new Error('Not implemented');
-  let result = 0;
-  if (n === 10) return num;
-  if (n === 2) {
-    if (num >= 256) {
-      const zero = Math.floor(num / 256) - 1;
-      const number = num % 256;
-      result = 10000000 * (10 ** zero);
-      for (let i = 7; i >= 0; i -= 1) {
-        if (number >= (n ** i)) {
-          result += 1 * (10 ** i);
-        }
-      }
-    } else {
-      result = 0;
-      for (let j = 7; j >= 0; j -= 1) {
-        if (num >= (n ** j)) {
-          result += 1 * (10 ** j);
-        }
-      }
-    }
-  }
-  if (n === 3) {
-    if (num >= 6561) {
-      const zero = Math.floor(num / 6561);
-      const number = num % 6561;
-      result = 10000000 * (10 ** zero);
-      let j = 0;
-      for (let i = number; i >= 0; i = Math.trunc(i / n)) {
-        result += (i % n) * (10 ** j);
-        j += 1;
-      }
-    } else {
-      result = 0;
-      let j = 0;
-      for (let i = num; i >= 0; i = Math.trunc(i / n)) {
-        result += (i % n) * (10 ** j);
-        j += 1;
-      }
-    }
-  }
-  if (n === 4) {
-    result = 0;
-    let j = 0;
-    for (let i = num; i >= 0; i = Math.trunc(i / n)) {
-      result += (i % n) * (10 ** j);
-      j += 1;
-    }
-  }
-  return result;
+  return num.toString(n);
 }
 
 
