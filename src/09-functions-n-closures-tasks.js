@@ -23,16 +23,11 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
-  // function makeCounter() {
-  //   const a = f;
-  //   return function ar() {
-  //     return a;
-  //   };
-  // }
-  // const b = makeCounter();
-  // return b(g);
+function getComposition(f, g) {
+  // throw new Error('Not implemented');
+  return function closure(x) {
+    return f(g(x));
+  };
 }
 
 
@@ -52,8 +47,11 @@ function getComposition(/* f, g */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  // throw new Error('Not implemented');
+  return function closure(x) {
+    return x ** exponent;
+  };
 }
 
 
@@ -72,6 +70,10 @@ function getPowerFunction(/* exponent */) {
  */
 function getPolynom() {
   throw new Error('Not implemented');
+  // if (arguments.length === 0) return null;
+  // if (arguments.length === 1) {return `y = ${arguments[0]}`;
+  // if (arguments.length === 2) return `y = ${arguments[0]}x ${arguments[1]}`;
+  // if (arguments.length === 3) return `y = ${arguments[0]}*x^2 ${arguments[1]}*x ${arguments[2]}`;
 }
 
 
@@ -155,8 +157,11 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  // throw new Error('Not implemented');
+  return function closure(...args2) {
+    return fn(...args1, ...args2);
+  };
 }
 
 
@@ -177,8 +182,13 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  // throw new Error('Not implemented');
+  let i = startFrom - 1;
+  return function closure() {
+    i += 1;
+    return i;
+  };
 }
 
 
